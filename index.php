@@ -14,11 +14,13 @@ include_once "config/config.php";
 //models
 include_once "models/Model.php";
 include_once "models/Db.php";
+include_once "models/Category.php";
 include_once "models/User.php";
 include_once "models/Article.php";
 //controlers
 include_once "controllers/AdminBaseController.php";
 include_once "controllers/UserController.php";
+include_once "controllers/CategoryController.php";
 include_once "controllers/ArticleController.php";
 
 include_once "Route.php";
