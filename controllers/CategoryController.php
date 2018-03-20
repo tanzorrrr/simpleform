@@ -10,7 +10,8 @@ class CategoryController
 {
         public function index(){
             $category =new Category();
-            $categories =$category->getCat();
+//            $categories =$category->getCat();
+          // $category->getTreeCat();
             include_once "views/categories/index.php";
         }
 

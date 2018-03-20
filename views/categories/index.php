@@ -18,13 +18,15 @@ $title = "Dashboard";
                         <th></th>
                     </thead>
                     <tbody>
-                    <?php foreach ($categories as $item):?>
+<!--                    --><?php //foreach ($categories as $item):?>
                         <tr>
-                            <td><?php echo $item["id"];?></td>
-                            <td><?php echo $item["title"];?></td>
-                            <td><a href="/category/delete/<?php echo $item["id"];?>"class="btn btn-danger">Delite</a></td>
+                            
+                            <?php echo $category->getTreeCat();?>
+<!--                            <td>--><?php //echo $item["id"];?><!--</td>-->
+<!--                            <td>--><?php //echo $item["title"];?><!--</td>-->
+<!--                            <td><a href="/category/delete/--><?php //echo $item["id"];?><!--"class="btn btn-danger">Delite</a></td>-->
                         </tr>
-                    <?php endforeach;?>
+<!--                    --><?php //endforeach;?>
                     </tbody>
                 </table>
 
