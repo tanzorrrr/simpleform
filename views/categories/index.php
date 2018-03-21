@@ -9,7 +9,7 @@ $title = "Dashboard";
                 <?php include_once ROOT.'/views/layauts/asade.php';?>
             </div>
             <div class="col-md-10">
-
+                <a href="/category/add" class="btn btn-success float-right mb-5">Add category</a>
                 <table class="table table-dark">
                     <thead>
                     <tr>

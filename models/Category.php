@@ -48,5 +48,44 @@ class Category extends Model
 
     }
 
+    public  function getCat2(){
+        function CategoryTree2(&$output=null, $parent=0, $indent=null){
+            // conection to the database
+           $conn=Db::connect();
+            $r = $conn->prepare("SELECT id, title FROM category WHERE parent_id=:parentid");
+            $r->execute(array(
+                'parentid' 	=> $parent
+            ));
+            // show the categories one by one
+            while($c = $r->fetch(PDO::FETCH_ASSOC)){
+                $output .= '<option value=' . $c['id'] . '>' . $indent . $c['title'] . "</option>";
+                if($c['id'] != $parent){
+                    // in case the current category's id is different that $parent
+                    // we call our function again with new parameters
+                    CategoryTree2($output, $c['id'], $indent . "&nbsp;&nbsp;");
+                }
+            }
+            // return the list of categories
+            return $output;
+        }
+// show the categories on the web page
+        echo "<select name='parent_id'>
+<option value='0'>Select a category</option>" .
+            CategoryTree2() .
+            "</select>";
+    }
+
+    public function addCat($title,$description,$parent_id){
+        $conn = Db::connect();
+        $sql ="INSERT INTO category(title,description,parent_id)VALUES(:title,:description,:parent_id)";
+        $result= $conn->prepare($sql);
+        $result->bindParam(':title',$title,PDO::PARAM_STR);
+        $result->bindParam(':description',$description,PDO::PARAM_STR);
+        $result->bindParam(':parent_id',$parent_id,PDO::PARAM_STR);
+        return $result->execute();
+
+
+    }
+
 
 }
