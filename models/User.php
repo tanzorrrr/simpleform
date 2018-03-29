@@ -99,7 +99,7 @@ class User extends Model
             $_SESSION['user']=$this->login;
             $_SESSION['user_id']=$user['id'];
            // var_dump($_SESSION);
-            header("Location: /dashboard");
+            header("Location: /dashboard/main");
 
             return true;
             return false;

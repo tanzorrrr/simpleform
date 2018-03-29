@@ -49,6 +49,24 @@ class Model
 
     }
 
+    public function moveFile($file){
+        $target_dir = ROOT."/views/img/";
+        $target_file = $target_dir . basename($file["name"]);
+        //var_dump($file);
+        if($file['size']>50000000){
+            echo "too big size";
+        }
+
+
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+
+        }
+
+        move_uploaded_file($file["tmp_name"], $target_file);
+
+        }
+
 
 
 }

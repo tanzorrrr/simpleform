@@ -32,7 +32,7 @@ class Category extends Model
             while ($c = $r->fetch(PDO::FETCH_ASSOC)) {
                 $output .= "<tr><td>" . $c['id'] . "</td>
                 <td>" . $indent . $c['title'] . "</td>
-                <td><a class='btn btn-success'>action</a></td>";
+                <td><a href='categories/show/".$c['id']."'  class='btn btn-success'>Edit</a><a href='categories/show/".$c['id']."' class='btn btn-info'>Info</a><a href='/category/delete/".$c['id']."' class='btn btn-danger'>Delt</a></td>";
                 if ($c['id'] != $parent) {
                     // in case the current category's id is different that $parent
                     // we call our function again with new parameters
@@ -75,16 +75,23 @@ class Category extends Model
             "</select>";
     }
 
-    public function addCat($title,$description,$parent_id){
+    public function addCat($title,$file,$description,$parent_id){
         $conn = Db::connect();
-        $sql ="INSERT INTO category(title,description,parent_id)VALUES(:title,:description,:parent_id)";
+
+        $sql ="INSERT INTO category(title,img,description,parent_id)VALUES(:title,:img,:description,:parent_id)";
         $result= $conn->prepare($sql);
         $result->bindParam(':title',$title,PDO::PARAM_STR);
+        $result->bindParam(':img',$file,PDO::PARAM_STR);
         $result->bindParam(':description',$description,PDO::PARAM_STR);
-        $result->bindParam(':parent_id',$parent_id,PDO::PARAM_STR);
+        $result->bindParam(':parent_id',$parent_id,PDO::PARAM_INT);
         return $result->execute();
 
+        
 
+    }
+
+    public function deleteCat($id){
+        $this->destroy($this->table,$id);
     }
 
 

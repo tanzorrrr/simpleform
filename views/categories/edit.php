@@ -32,8 +32,8 @@ $title = "Dashboard";
                 </form>
             </div>
 
-            </div>
         </div>
+    </div>
     </div>
 
 

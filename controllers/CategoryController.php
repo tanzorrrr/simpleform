@@ -6,7 +6,7 @@
  * Date: 20.03.2018
  * Time: 9:08
  */
-class CategoryController
+class CategoryController extends AdminBaseController
 {
         public function index(){
             $category =new Category();
@@ -17,13 +17,19 @@ class CategoryController
 
     public function insert(){
         $category = new Category();
-        //var_dump($_POST);
+        self::checkAdmin();
         if(isset($_POST['submit'])){
             $title = $_POST['title'];
             $description = $_POST['description'];
             $parent_id = $_POST['parent_id'];
+            if(isset($_FILES['file'])){
+                $file = $_FILES['file'];
+                $img = $file['name'];
+                $category->moveFile($file);
+            }
+
             if(isset($title)||!empty($title)){
-                $category->addCat($title,$description ,$parent_id );
+                $category->addCat($title,$img,$description ,$parent_id);
                 header("Location:/dashboard/categories");
             }
 
@@ -32,6 +38,18 @@ class CategoryController
 
         include_once "views/categories/addcat.php";
         return false;
+    }
+    
+    public function edit(){
+        
+    }
+
+    public  function delete($id){
+        $category = new Category();
+        self::checkAdmin();
+        $category->deleteCat($id);
+        header("Location:/dashboard/categories");
+
     }
 
 }

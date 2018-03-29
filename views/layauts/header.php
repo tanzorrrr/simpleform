@@ -32,6 +32,9 @@
         <li class="nav-item">
             <a class="nav-link" href="/logout">logout</a>
         </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/main">Dashboard</a>
+            </li>
             <li>
                 <a href="" class="nav-link">Hello:<?php echo $_SESSION['user']?><?php echo $_SESSION['user_id']?></a>
             </li>
