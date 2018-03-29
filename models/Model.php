@@ -59,7 +59,7 @@ class Model
 
 
         if (file_exists($target_file)) {
-            echo "Sorry, file already exists.";
+            //echo "Sorry, file already exists.";
 
         }
 

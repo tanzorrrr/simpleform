@@ -40,8 +40,42 @@ class CategoryController extends AdminBaseController
         return false;
     }
     
-    public function edit(){
+    public function show($id)
+    {
+        $category = new Category();
+
+            $cate =$category->getSingleCat($id);
+
+        include_once "views/categories/single.php";
+    }
+    
+    
+    public function edit($id){
+        $category = new Category();
+        $cate =$category->getSingleCat($id);
         
+        include_once "views/categories/editcat.php";
+
+
+        }
+
+    public function  update($id){
+        self::checkAdmin();
+        $category = new Category();
+        if(isset($_POST['submit'])) {
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $parent_id = $_POST['parent_id'];
+            if (isset($_FILES['file'])) {
+                $file = $_FILES['file'];
+                $img = $file['name'];
+                $category->moveFile($file);
+            }
+
+            $category->updateCat($id, $title, $img, $description, $parent_id);
+
+        }
+        header("Location:/dashboard/categories");
     }
 
     public  function delete($id){

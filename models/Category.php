@@ -16,6 +16,27 @@ class Category extends Model
         return $catgories;
 
     }
+    
+    public function updateCat($id,$title,$img,$description,$parent_id){
+        $conn = Db::connect();
+
+        $sql = "UPDATE category
+            SET 
+                title = :title, 
+                img = :img, 
+                description = :descriotion,
+                parent_id =:parent_id
+            WHERE id = :id";
+        $result = $conn->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':title', $title, PDO::PARAM_STR);
+        $result->bindParam(':img', $img, PDO::PARAM_STR);
+        $result->bindParam(':descriotion', $description, PDO::PARAM_STR);
+        $result->bindParam(':parent_id', $parent_id, PDO::PARAM_INT);
+        
+        return $result->execute();
+
+    }
 
     public function getTreeCat()
     {
@@ -32,7 +53,7 @@ class Category extends Model
             while ($c = $r->fetch(PDO::FETCH_ASSOC)) {
                 $output .= "<tr><td>" . $c['id'] . "</td>
                 <td>" . $indent . $c['title'] . "</td>
-                <td><a href='categories/show/".$c['id']."'  class='btn btn-success'>Edit</a><a href='categories/show/".$c['id']."' class='btn btn-info'>Info</a><a href='/category/delete/".$c['id']."' class='btn btn-danger'>Delt</a></td>";
+                <td><a href='/categories/edit/".$c['id']."'  class='btn btn-success'>Edit</a><a href='/categories/show/".$c['id']."' class='btn btn-info'>Info</a><a href='/category/delete/".$c['id']."' class='btn btn-danger'>Delt</a></td>";
                 if ($c['id'] != $parent) {
                     // in case the current category's id is different that $parent
                     // we call our function again with new parameters
@@ -46,6 +67,12 @@ class Category extends Model
         // show the categories on the web page
       echo CategoryTree();
 
+    }
+    
+    public function getSingleCat($id){
+        $category =$this->get($this->table, $id);
+        return $category;
+        
     }
 
     public  function getCat2(){
