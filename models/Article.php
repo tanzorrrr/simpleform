@@ -15,4 +15,10 @@ class Article
 
     }
 
+    public function create(){
+
+
+    }
+
+
 }

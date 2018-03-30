@@ -75,7 +75,7 @@ class Category extends Model
         
     }
 
-    public  function getCat2(){
+    public  function getCat2($selected=0,$title="Select cagory"){
         function CategoryTree2(&$output=null, $parent=0, $indent=null){
             // conection to the database
            $conn=Db::connect();
@@ -97,7 +97,7 @@ class Category extends Model
         }
 // show the categories on the web page
         echo "<select name='parent_id'>
-<option value='0'>Select a category</option>" .
+<option value='".$selected."'>".$title."</option>" .
             CategoryTree2() .
             "</select>";
     }
